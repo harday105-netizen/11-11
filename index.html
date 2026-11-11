@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>11:11, Madam Ji</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0b1630; --ink:#eaf1ff; --soft:#a9bde6; --ice:#bfe0ff; --glow:#7fb8ff; --line:rgba(191,224,255,.25); --card:rgba(255,255,255,.07);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;line-height:1.7;overflow:hidden}
+h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-style:italic;margin:0 0 14px;line-height:1.1;color:var(--ice)}
+h2{font-size:clamp(2.1rem,8vw,3.3rem)}
+.clock{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:clamp(5rem,27vw,10rem);line-height:1;color:#fff;text-shadow:0 0 28px var(--glow),0 0 70px rgba(127,184,255,.5);letter-spacing:.02em;margin:0 0 10px}
+p{max-width:34em;margin:0 0 12px;font-size:1.1rem}
+.soft{color:var(--soft)}
+#site{position:fixed;inset:0;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:safe center;text-align:center;overflow:hidden auto;
+  padding:calc(24px + env(safe-area-inset-top,0px)) 24px 120px;
+  background:radial-gradient(1.6px 1.6px at 14% 22%,#fffc 50%,transparent 52%),radial-gradient(1.2px 1.2px at 72% 16%,#fff9 50%,transparent 52%),radial-gradient(1.8px 1.8px at 86% 58%,#fffb 50%,transparent 52%),radial-gradient(1.2px 1.2px at 30% 78%,#fff8 50%,transparent 52%),radial-gradient(circle at 50% 0%,rgba(127,184,255,.25),transparent 55%),linear-gradient(180deg,#0b1630,#1b2b5a 70%,#2b2f6b);
+  opacity:0;visibility:hidden;transform:translateX(36px);transition:opacity .6s ease,transform .6s ease,visibility 0s .6s}
+.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .6s ease,transform .6s ease}
+.slide.before{transform:translateX(-36px)}
+.pair{display:flex;gap:26px;align-items:center;justify-content:center;margin:6px 0 18px}
+.pair b{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(4rem,20vw,7rem);color:#fff;line-height:1;text-shadow:0 0 24px var(--glow)}
+.pair i{font-style:normal;font-size:1.6rem;color:var(--ice)}
+.wish{min-height:4.5em;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(1.5rem,5.5vw,2.1rem);max-width:20em;color:#fff;margin-bottom:14px}
+button{font:inherit;cursor:pointer;border:0;border-radius:999px;padding:12px 24px;background:linear-gradient(135deg,#d8ecff,#8fc1ff);color:#0b1630;font-weight:700}
+button:focus-visible{outline:3px solid var(--ice);outline-offset:3px}
+.ghost{background:transparent;color:var(--ice);border:1.5px solid var(--ice)}
+.shoot{position:fixed;width:120px;height:2px;background:linear-gradient(90deg,transparent,#fff);border-radius:2px;opacity:0;pointer-events:none;z-index:4;animation:shoot 1.1s ease-out forwards;transform:rotate(25deg)}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(25deg)}15%{opacity:1}100%{opacity:0;transform:translate(260px,120px) rotate(25deg)}}
+#nav{position:absolute;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px calc(16px + env(safe-area-inset-bottom,0px))}
+#dots{display:flex;gap:8px}
+#dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:all .3s}
+#dots i.on{background:var(--ice);width:22px;border-radius:6px}
+#prev.off,#next.off{visibility:hidden}
+@media (prefers-reduced-motion:reduce){.slide,.slide.active{transition:none}.shoot{display:none}}
+</style>
+</head>
+<body>
+<main id="site">
+  <section class="slide">
+    <div class="clock" aria-label="11:11">11:11</div>
+    <h2>Happy 11/11, Madam Ji</h2>
+    <p class="soft">Today’s date and the clock match. That’s why this day is yours.</p>
+  </section>
+
+  <section class="slide">
+    <h2>One me, one you</h2>
+    <div class="pair"><b>1</b><i>♡</i><b>1</b></div>
+    <p>Two ones, standing right next to each other. However much distance lies between us, we always stand together.</p>
+    <p class="soft">To me, 11:11 means exactly this: you and me.</p>
+  </section>
+
+  <section class="slide">
+    <h2>Make a wish</h2>
+    <p class="soft">They say a wish made at 11:11 comes true. Today, all my wishes are for you.</p>
+    <div class="wish" id="wish" role="status" aria-live="polite">Tap the button, madam ji. ✨</div>
+    <button id="wbtn">Make a wish</button>
+  </section>
+
+  <section class="slide">
+    <h2>My biggest wish</h2>
+    <p>May you always be a part of my life.</p>
+    <div class="clock" style="font-size:clamp(2.6rem,12vw,4.5rem)">I love you</div>
+    <p style="color:var(--ice);font-size:1.3rem;margin-top:6px">Please overthink less, Devii ji 🤍</p>
+    <p class="soft" style="max-width:26em">And madam ji, if we ever don’t talk for a while, it never means I’m bored or that I’ve forgotten you. You will always be mine, and I will always be yours. 💙</p>
+    <p class="soft">Your other “1”, Harday 💙</p>
+  </section>
+
+  <nav id="nav">
+    <button id="prev" class="ghost off">Back</button>
+    <div id="dots" aria-hidden="true"></div>
+    <button id="next">Begin</button>
+  </nav>
+</main>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var wl=[
+    "My wish: may you always be happy.",
+    "My wish: may our love grow a little more every day.",
+    "My wish: may we meet each other soon.",
+    "My wish: may you always stay in my life.",
+    "My wish: may we understand each other a little better every day."
+  ],order=[],last=-1;
+  function star(){
+    if(calm)return;
+    for(var i=0;i<3;i++){
+      var s=document.createElement("div");s.className="shoot";
+      s.style.left=(Math.random()*60)+"%";s.style.top=(Math.random()*40)+"%";
+      s.style.animationDelay=(i*.25)+"s";
+      document.body.appendChild(s);
+      (function(s){setTimeout(function(){s.remove()},1800)})(s);
+    }
+  }
+  $("wbtn").addEventListener("click",function(){
+    if(!order.length){order=wl.map(function(_,i){return i}).sort(function(){return Math.random()-.5});if(order[order.length-1]===last)order.reverse();}
+    last=order.pop();$("wish").textContent=wl[last];$("wbtn").textContent="One more wish ✨";star();
+  });
+
+  var slides=[].slice.call(document.querySelectorAll(".slide")),cur=0,dots=$("dots");
+  slides.forEach(function(){dots.appendChild(document.createElement("i"))});
+  function go(i){
+    cur=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach(function(el,k){
+      el.classList.toggle("active",k===cur);
+      el.classList.toggle("before",k<cur);
+      if(k===cur)el.scrollTop=0;
+    });
+    [].forEach.call(dots.children,function(d,k){d.classList.toggle("on",k===cur)});
+    $("prev").classList.toggle("off",cur===0);
+    $("next").classList.toggle("off",cur===slides.length-1);
+    $("next").textContent=cur===0?"Begin":"Next";
+  }
+  $("next").addEventListener("click",function(){go(cur+1)});
+  $("prev").addEventListener("click",function(){go(cur-1)});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="ArrowRight")go(cur+1);
+    if(e.key==="ArrowLeft")go(cur-1);
+  });
+  var tx=0,ty=0;
+  $("site").addEventListener("touchstart",function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  $("site").addEventListener("touchend",function(e){
+    var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>70&&Math.abs(dy)<60)go(dx<0?cur+1:cur-1);
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
